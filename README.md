@@ -27,6 +27,8 @@ Make sure you have joined a channel with access to the bot you want files from, 
 
 You can use `/XDCC QUEUE` or `/XDCC QUEUE [bot_name]` to view the current queue.
 
+If it doesn't start downloading stuff for you automatically enter `/XDCC START` to get things going.
+
 ## All Commands
 
 ```
