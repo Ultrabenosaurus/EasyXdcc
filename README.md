@@ -13,7 +13,7 @@ The original is by [Bouliere Tristan](mailto:boulieretristan@aliceadsl.fr) and c
 
 Simply copy `EasyXdcc.py` to your IRC client's plugins folder. Original version designed for XChat 2, my version is tested and working in HexChat 2.10.1. May or may not work in any other client.
 
-Some lines near the bottom of the file need to be toggled depending on your OS, they are commented so check them before using.
+~~Some lines near the bottom of the file need to be toggled depending on your OS, they are commented so check them before using.~~ OS detection is now in place to handle paths properly! Yay!
 
 Confirm it is loaded and active in your client's plugin manager.
 
@@ -34,43 +34,43 @@ If it doesn't start downloading stuff for you automatically enter `/XDCC START` 
 ```
  Queue a pack :
  /XDCC ADD [bot_name] [n°_pack]
- 
+
  Queue a pack list :
  /XDCC ADDL [bot_name] [n°_pack_beg] [n°_pack_end]
- 
+
  Queue non-sequential pack list :
  /XDCC ADDM [bot_name] [n°_pack_1] [n°_pack_2] [...]
- 
+
  See pack queue :
  /XDCC QUEUE
- 
+
  See pack queue for a bot :
  /XDCC QUEUE [bot_name]
- 
+
  Withdraw a pack from queue :
  /XDCC RMP [bot_name] [n°pack]
- 
+
  Withdraw a pack list from queue :
  /XDCC RMPL [bot_name] [n°pack_beg] [N°pack_end]
- 
+
  Withdraw a non-sequential pack list from queue :
  /XDCC RMPM [bot_name] [n°_pack_1] [n°_pack_2] [...]
- 
+
  Withdraw a bot from queue :
  /XDCC RMBOT [bot_name]
- 
+
  Stop EasyXdcc :
  /XDCC STOP
- 
+
  Start EasyXdcc :
  /XDCC START
- 
+
  Save Queue :
  /XDCC SAVE
- 
+
  Load Queue :
  /XDCC LOAD
- 
+
  Delete saved Queue file :
  /XDCC PURGE
  ```

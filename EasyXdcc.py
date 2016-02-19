@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 __module_name__ = "EasyXdcc"
-__module_version__ = "1.1"
+__module_version__ = "1.2"
 __module_description__ = "Xdcc Queues"
 __module_author__ = "Bouliere Tristan <boulieretristan@aliceadsl.fr>"
-import  xchat, os, time, pprint
+__module_contributor__ = "Ultrabenosaurus <https://github.com/Ultrabenosaurus/EasyXdcc>"
+import  xchat, os, time, pprint, platform
 
 class t_bot:
     def __init__(self, name, serv, chan):
@@ -431,22 +432,33 @@ def lauch_dl(userdata):
             bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
     return 1
 
+def check_dirs(f):
+    d = os.path.dirname(f)
+    if not os.path.exists(d):
+        os.makedirs(d)
 
+comp = platform.system()
 my_hook = None
 queue = bot_queue()
+
 try:
     cmd = os.popen("whoami")
     try:
         user = cmd.readlines()
         user = user[0].strip("\n")
-        # comment the following line if you're not on Windows
-        user = user.split("\\")[1]
+        if 'Windows' == comp:
+            user = user.split("\\")[1]
     finally:
         cmd.close()
 except IOError:
     pass
-#sav_file = "/home/"+user+"/.xchat2/EasyXdcc.queue" # use this line for Linux environments
-sav_file = "C:/Users/"+user+"/AppData/Roaming/HexChat/addons/EasyXdcc.queue" # use this line for Windows Vista+ environments
+
+if 'Windows' == comp:
+    sav_dir = "C:/Users/"+user+"/.config/EasyXdcc/"
+else:
+    sav_dir = "/home/"+user+"/.config/EasyXdcc/"
+check_dirs(sav_dir)
+sav_file = sav_dir + "queue"
 
 xchat.hook_command("XDCC", idx_EasyXdcc, help="/XDCC <cmd>")
 xchat.command ("MENU -p5 ADD EasyXdcc")
