@@ -456,5 +456,12 @@ xchat.command ("MENU ADD \"EasyXdcc/Queue(s)\" \"xdcc queue\"")
 xchat.command ("MENU ADD \"EasyXdcc/Save\" \"xdcc save\"")
 xchat.command ("MENU ADD \"EasyXdcc/Load\" \"xdcc load\"")
 xchat.command ("MENU ADD \"EasyXdcc/Help\" \"xdcc help\"")
+
 print "Plugin EasyXdcc loaded!"
-print "/XDCC HELP"
+
+xchat.command ("xdcc load")
+if len(queue.bots) > 0:
+    xchat.command ("xdcc queue")
+    print "/XDCC START to start downloading!"
+
+print "/XDCC HELP for more"
