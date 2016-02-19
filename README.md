@@ -27,7 +27,9 @@ Make sure you have joined a channel with access to the bot you want files from, 
 
 You can use `/XDCC QUEUE` or `/XDCC QUEUE [bot_name]` to view the current queue.
 
-If it doesn't start downloading stuff for you automatically enter `/XDCC START` to get things going.
+If it doesn't start downloading stuff for you automatically enter `/XDCC START` to get things going. To make it start downloading automatically in the future, enter `/XDCC AUTO ON` or toggle it form the EasyXdcc menu option.
+
+The start/stop/auto-start and load/save/show queue functions are also available from a custom menu added to your client's interface. Additionally, the menu entry for auto-start will tell you whether the feature is currently on or off.
 
 ## All Commands
 
@@ -64,6 +66,12 @@ If it doesn't start downloading stuff for you automatically enter `/XDCC START` 
 
  Start EasyXdcc :
  /XDCC START
+
+ Show auto-start status :
+ /XDCC AUTO
+
+ Toggle auto-start :
+ /XDCC AUTO [ON|OFF]
 
  Save Queue :
  /XDCC SAVE

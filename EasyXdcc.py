@@ -197,7 +197,7 @@ def search_bot_current_chan(bot_name):
 def help():
     print ""
     print "*****************************"
-    print "*      Manuel EasyXdcc      *"
+    print "*     EasyXdcc Commands     *"
     print "*****************************"
     print ""
     print "Queue a pack :"
@@ -233,6 +233,12 @@ def help():
     print "Start EasyXdcc :"
     print "/XDCC START"
     print ""
+    print "Show auto-start status :"
+    print "/XDCC AUTO"
+    print ""
+    print "Toggle auto-start :"
+    print "/XDCC AUTO [ON|OFF]"
+    print ""
     print "Save Queue :"
     print "/XDCC SAVE"
     print ""
@@ -263,11 +269,15 @@ def idx_EasyXdcc(word, word_eol, userdata):
             return help()
         elif word[1] == "purge":
             return delqueue()
+        elif word[1] == "auto":
+            return show_auto()
     elif argc == 3:
         if word[1] == "rmbot":
             return rmbot(word[2])
         elif word[1] == "queue":
             return seebotqueue(word[2])
+        elif word[1] == "auto":
+            return toggle_auto(word[2])
     elif argc == 4 :
         if word[3].isdigit():
             if word[1] == "add":
@@ -301,6 +311,27 @@ def seebotqueue(bot_name):
         bot = search_bot_current_chan(bot_name)
         if bot is not None:
             print bot
+    return xchat.EAT_ALL
+
+def show_auto():
+    if os.path.exists(sav_dir + "autostart"):
+        print "EasyXdcc : auto-start is currently ON"
+    else:
+        print "EasyXdcc : auto-start is currently OFF"
+    return xchat.EAT_ALL
+
+def toggle_auto(switch):
+    if 'on' == switch:
+        if not os.path.exists(sav_dir + "autostart"):
+            file = open(sav_dir + "autostart", 'w')
+            file.close()
+        xchat.command ("MENU -t1 ADD \"EasyXdcc/Auto-Start\" \"xdcc auto on\" \"xdcc auto off\"")
+        print "EasyXdcc : auto-start enabled"
+    if 'off' == switch:
+        if os.path.exists(sav_dir + "autostart"):
+            os.remove(sav_dir + "autostart")
+        xchat.command ("MENU -t0 ADD \"EasyXdcc/Auto-Start\" \"xdcc auto on\" \"xdcc auto off\"")
+        print "EasyXdcc : auto-start disabled"
     return xchat.EAT_ALL
 
 def add(bot_name, num_pack):
@@ -429,7 +460,10 @@ def lauch_dl(userdata):
             delqueue()
             save()
             bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
-            bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
+            try:
+                bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
+            except AttributeError:
+                pass
     return 1
 
 def check_dirs(f):
@@ -469,11 +503,19 @@ xchat.command ("MENU ADD \"EasyXdcc/Save\" \"xdcc save\"")
 xchat.command ("MENU ADD \"EasyXdcc/Load\" \"xdcc load\"")
 xchat.command ("MENU ADD \"EasyXdcc/Help\" \"xdcc help\"")
 
+if os.path.exists(sav_dir + "autostart"):
+    xchat.command ("MENU -t1 ADD \"EasyXdcc/Auto-Start\" \"xdcc auto on\" \"xdcc auto off\"")
+else:
+    xchat.command ("MENU -t0 ADD \"EasyXdcc/Auto-Start\" \"xdcc auto on\" \"xdcc auto off\"")
+
 print "Plugin EasyXdcc loaded!"
 
 xchat.command ("xdcc load")
 if len(queue.bots) > 0:
     xchat.command ("xdcc queue")
-    print "/XDCC START to start downloading!"
+    if os.path.exists(sav_dir + "autostart"):
+        xchat.command ("xdcc start")
+    else:
+        print "/XDCC START to start downloading!"
 
 print "/XDCC HELP for more"
