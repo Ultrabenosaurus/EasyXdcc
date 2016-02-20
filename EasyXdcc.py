@@ -453,7 +453,7 @@ def stop():
 
 def launch_dl(userdata):
     global queue, my_hook
-    if 'None' == xchat.get_info("server"):
+    if None == xchat.get_info("server"):
         xchat.unhook(my_hook)
         my_hook = xchat.hook_timer(10000,server_check)
     else:
@@ -470,11 +470,15 @@ def launch_dl(userdata):
                     pass
     return 1
 
-def server_check():
-    global my_hook
-    if 'None' != xchat.get_info("server"):
+def server_check(userdata = None):
+    global my_hook, no_server
+    if 0 == no_server:
+        print "EasyXdcc : waiting for connection"
+        no_server = 1
+    if None != xchat.get_info("server"):
         xchat.unhook(my_hook)
         my_hook = xchat.hook_timer(10000,launch_dl)
+        no_server = 0
     return 1
 
 def check_dirs(f):
@@ -485,6 +489,7 @@ def check_dirs(f):
 comp = platform.system()
 my_hook = None
 queue = bot_queue()
+no_server = 0
 
 try:
     cmd = os.popen("whoami")
