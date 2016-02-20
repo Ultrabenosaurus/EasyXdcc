@@ -7,13 +7,11 @@ XDCC download manager with support for simultaneous queues on different channels
 
 This is not my work, I just found it and made some modifications. The site seems to be down even though the file is still accessible and searching for an hour today looking for an updated version returned nothing helpful, so I decided to host it here.
 
-The original is by [Bouliere Tristan](mailto:boulieretristan@aliceadsl.fr) and can be found in the [XChat plugin repository](http://xchat.org/cgi-bin/search.pl?str=easyxdcc&cat=0&Submit=Search).
+The original is by Bouliere Tristan and can be found in the [XChat plugin repository](http://xchat.org/cgi-bin/search.pl?str=easyxdcc&cat=0&Submit=Search). I attempted to email Bouliere using the address given in the source code to tell him about this repo, but I got a bounceback saying it didn't exist.
 
 ## Install
 
 Simply copy `EasyXdcc.py` to your IRC client's plugins folder. Original version designed for XChat 2, my version is tested and working in HexChat 2.10.1. May or may not work in any other client.
-
-~~Some lines near the bottom of the file need to be toggled depending on your OS, they are commented so check them before using.~~ OS detection is now in place to handle paths properly! Yay!
 
 Confirm it is loaded and active in your client's plugin manager.
 
@@ -86,10 +84,12 @@ The start/stop/auto-start and load/save/show queue functions are also available 
 ## TODO
 
 * make a changelog
+* handle having packs queued on a server you're not currently connected to
+  * sometimes connecting to the same network doesn't mean the same server, which breaks the queue
 * use JSON for queue file
   * I hope python knows how to do JSON natively...
 * refactor for latest HexChat python interface guidelines
-  * gracefully handle both XChat and HexChat interfaces or just go with HexChat now?
+  * handle both XChat and HexChat interfaces or just go with HexChat now?
 * make it smarter
   * file transfer status
   * automatic retry of failed transfers
