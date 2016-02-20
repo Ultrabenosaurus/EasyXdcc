@@ -5,12 +5,12 @@ __module_description__ = "plugin for testing random shit"
 __module_author__ = "Ultrabenosaurus <https://github.com/Ultrabenosaurus/EasyXdcc>"
 import hexchat, os, time, pprint, platform
 
-def info_main(word, word_eol, userdata):
+def main(word, word_eol, userdata):
     argc = len(word)
 
     if argc == 3:
-        if("info" == word[1])
-        print hexchat.get_info(word[2])
+        if("info" == word[1]):
+            print word[1] + ": " + hexchat.get_info(word[2])
     else:
         print "tester: use a proper command"
 
