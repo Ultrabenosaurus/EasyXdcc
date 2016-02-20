@@ -146,6 +146,7 @@ class bot_queue:
                 pass
 
     def delqueue(self,file_name):
+        self.bots = []
         if (type(file_name) == str):
             try:
                 os.remove(file_name)
