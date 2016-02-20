@@ -438,9 +438,9 @@ def delqueue():
 def start():
     global my_hook
     if my_hook is None:
-        my_hook = xchat.hook_timer(10000, lauch_dl)
+        my_hook = xchat.hook_timer(10000, launch_dl)
         print "EasyXdcc started"
-        lauch_dl(None)
+        launch_dl(None)
     return xchat.EAT_ALL
 
 def stop():
@@ -451,19 +451,30 @@ def stop():
         print "EasyXdcc stoped"
     return xchat.EAT_ALL
 
-def lauch_dl(userdata):
-    global queue
-    for bot in getattr(queue, 'bots'):
-        if len(bot) == 0:
-            queue.del_bot(bot)
-        if not bot.isActive():
-            delqueue()
-            save()
-            bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
-            try:
-                bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
-            except AttributeError:
-                pass
+def launch_dl(userdata):
+    global queue, my_hook
+    if 'None' == xchat.get_info("server"):
+        xchat.unhook(my_hook)
+        my_hook = xchat.hook_timer(10000,server_check)
+    else:
+        for bot in getattr(queue, 'bots'):
+            if len(bot) == 0:
+                queue.del_bot(bot)
+            if not bot.isActive():
+                delqueue()
+                save()
+                bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
+                try:
+                    bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
+                except AttributeError:
+                    pass
+    return 1
+
+def server_check():
+    global my_hook
+    if 'None' != xchat.get_info("server"):
+        xchat.unhook(my_hook)
+        my_hook = xchat.hook_timer(10000,launch_dl)
     return 1
 
 def check_dirs(f):
