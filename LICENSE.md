@@ -1,4 +1,4 @@
-Copyright (c) 2016, Dan Bennett
+Copyright (c) 2016, Bouliere Tristan & Dan Bennett
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
