@@ -3,6 +3,8 @@ EasyXdcc
 
 XDCC download manager with support for simultaneous queues on different channels, servers and bots, as well as saving/loading queue state.
 
+__Current Version: 1.3__ ([changelog](#changelog))
+
 ## Credit
 
 This is not my work, I just found it and made some modifications. The site seems to be down even though the file is still accessible and searching for an hour today looking for an updated version returned nothing helpful, so I decided to host it here.
@@ -14,6 +16,8 @@ The original is by Bouliere Tristan and can be found in the [XChat plugin reposi
 Simply copy `EasyXdcc.py` to your IRC client's plugins folder. Original version designed for XChat 2, my version is tested and working in HexChat 2.10.1. May or may not work in any other client.
 
 Confirm it is loaded and active in your client's plugin manager.
+
+:shipit:
 
 ## Usage
 
@@ -83,9 +87,6 @@ The start/stop/auto-start and load/save/show queue functions are also available 
 
 ## TODO
 
-* make a changelog
-* handle having packs queued on a server you're not currently connected to
-  * sometimes connecting to the same network doesn't mean the same server, which breaks the queue
 * use JSON for queue file
   * I hope python knows how to do JSON natively...
 * refactor for latest HexChat python interface guidelines
@@ -93,3 +94,27 @@ The start/stop/auto-start and load/save/show queue functions are also available 
 * make it smarter
   * file transfer status
   * automatic retry of failed transfers
+
+## Changelog
+
+### 1.3
+
+* auto-start feature
+  * help text
+  * menu item
+* handle loss of connection
+* fix queue deletion to include in-memory queue
+
+### 1.2
+
+* auto-load queue file when plugin loads
+* OS detection for paths
+* create paths if they don't exist
+
+### 1.1
+
+* normalise indentation
+* non-sequential pack list add/remove
+* queue deletion
+* menu entry for help text
+* Windows path for queue file

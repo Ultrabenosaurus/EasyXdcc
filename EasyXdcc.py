@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __module_name__ = "EasyXdcc"
-__module_version__ = "1.2"
+__module_version__ = "1.3"
 __module_description__ = "Xdcc Queues"
 __module_author__ = "Bouliere Tristan <boulieretristan@aliceadsl.fr>"
 __module_contributor__ = "Ultrabenosaurus <https://github.com/Ultrabenosaurus/EasyXdcc>"
@@ -146,12 +146,16 @@ class bot_queue:
                 pass
 
     def delqueue(self,file_name):
-        self.bots = []
         if (type(file_name) == str):
             try:
                 os.remove(file_name)
             except OSError:
                 pass
+
+    def purgequeue(self, file_name):
+        self.bots = []
+        delqueue(self, file_name)
+
 
     def connect(self):
         servchan=[]
@@ -173,7 +177,7 @@ def get_bot_current_chan(bot_name):
     global queue
     if (type(bot_name) != str):
         return None
-    serv = xchat.get_info("server");
+    serv = xchat.get_info("host");
     chan = xchat.get_info("channel");
     if serv is None or chan is None:
         print "Not Connected!"
@@ -188,7 +192,7 @@ def search_bot_current_chan(bot_name):
     global queue
     if (type(bot_name) != str):
         return None
-    serv = xchat.get_info("server");
+    serv = xchat.get_info("host");
     chan = xchat.get_info("channel");
     if serv is None or chan is None:
         print "Not Connected!"
@@ -269,7 +273,7 @@ def idx_EasyXdcc(word, word_eol, userdata):
         elif word[1] == "help":
             return help()
         elif word[1] == "purge":
-            return delqueue()
+            return purgequeue()
         elif word[1] == "auto":
             return show_auto()
     elif argc == 3:
@@ -426,7 +430,7 @@ def save():
 def load():
     global queue,sav_file
     queue.load(sav_file)
-    # queue.connect()
+    queue.connect()
     print "Queue(s) state loaded"
     return xchat.EAT_ALL
 
