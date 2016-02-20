@@ -82,3 +82,14 @@ The start/stop/auto-start and load/save/show queue functions are also available 
  Delete saved Queue file :
  /XDCC PURGE
  ```
+
+## TODO
+
+* make a changelog
+* use JSON for queue file
+  * I hope python knows how to do JSON natively...
+* refactor for latest HexChat python interface guidelines
+  * gracefully handle both XChat and HexChat interfaces or just go with HexChat now?
+* make it smarter
+  * file transfer status
+  * automatic retry of failed transfers
