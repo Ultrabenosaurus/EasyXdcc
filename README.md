@@ -5,6 +5,8 @@ XDCC download manager with support for simultaneous queues on different channels
 
 __Current Version: 1.3__ ([changelog](#changelog))
 
+__Current Home: [Ultrabenosaurus/EasyXdcc](https://github.com/Ultrabenosaurus/EasyXdcc)
+
 ## Credit
 
 This is not originally my work, I just found it and made some modifications. The site seems to be down even though the file is still accessible and searching for over an hour looking for an updated version returned nothing helpful, so I decided to host it here.
