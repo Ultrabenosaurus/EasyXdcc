@@ -430,7 +430,7 @@ def save():
 def load():
     global queue,sav_file
     queue.load(sav_file)
-    queue.connect()
+    # queue.connect()
     print "Queue(s) state loaded"
     return xchat.EAT_ALL
 
@@ -469,6 +469,12 @@ def launch_dl(userdata):
                 delqueue()
                 save()
                 bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
+                if bot_context == None:
+                    if None != xchat.find_context(getattr(bot, 'serv')):
+                        xchat.command("join " + getattr(bot, 'chan'))
+                    else:
+                        xchat.command("servchan " + getattr(bot, 'serv') + " 6667 " + getattr(bot, 'chan'))
+                    bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
                 try:
                     bot_context.command('msg '+getattr(bot, 'name')+' xdcc send #'+str(bot.pop()))
                 except AttributeError:
