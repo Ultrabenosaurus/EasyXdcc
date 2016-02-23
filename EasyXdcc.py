@@ -154,7 +154,7 @@ class bot_queue:
 
     def purgequeue(self, file_name):
         self.bots = []
-        delqueue(self, file_name)
+        delqueue()
 
 
     def connect(self):
@@ -440,6 +440,12 @@ def delqueue():
     print "Queue file deleted"
     return xchat.EAT_ALL
 
+def purgequeue():
+    global queue,sav_file
+    queue.purgequeue(sav_file)
+    print "Queue file deleted"
+    return xchat.EAT_ALL
+
 def start():
     global my_hook
     if my_hook is None:
@@ -469,8 +475,8 @@ def launch_dl(userdata):
                 delqueue()
                 save()
                 bot_context = xchat.find_context(getattr(bot, 'serv'), getattr(bot, 'chan'))
-                if bot_context == None:
-                    if None != xchat.find_context(getattr(bot, 'serv')):
+                if bot_context is None:
+                    if xchat.find_context(getattr(bot, 'serv')) is not None:
                         xchat.command("join " + getattr(bot, 'chan'))
                     else:
                         xchat.command("servchan " + getattr(bot, 'serv') + " 6667 " + getattr(bot, 'chan'))
